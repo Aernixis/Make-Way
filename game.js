@@ -1,6 +1,6 @@
 import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 
-const ws=new WebSocket('ws://localhost:3000');
+const ws=new WebSocket('https://makewayserver.onrender.com');
 let state={}; let input={}; let meshes={};
 
 window.create=()=>ws.send(JSON.stringify({type:'create'}));
