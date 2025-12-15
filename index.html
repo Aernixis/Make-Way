@@ -2,22 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Make Way Web</title>
+  <title>Make Way Web Prototype</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    html, body {margin:0;padding:0;overflow:hidden;background:#000;}
-    #menu {
-      position:absolute;top:10px;left:10px;z-index:10;
-      display:flex;gap:5px;
+    html,body {margin:0;padding:0;overflow:hidden;background:#111;}
+    #instructions {
+      position: absolute; top:10px; left:10px; color:#fff; font-family:sans-serif;
+      background: rgba(0,0,0,0.5); padding:5px; border-radius:5px;
     }
-    #code {width:100px;}
   </style>
 </head>
 <body>
-  <div id="menu">
-    <input id="code" placeholder="Lobby code">
-    <button onclick="create()">Create</button>
-    <button onclick="join()">Join</button>
+  <div id="instructions">
+    W/A/S/D = Move | SPACE = Boost
   </div>
   <script type="module" src="game.js"></script>
 </body>
