@@ -44,7 +44,8 @@
   button:hover{background:#ffaa00;}
 
   select{margin:10px;padding:10px;font-size:1em;}
-  canvas{display:block;}
+
+  canvas{display:block;position:absolute;top:0;left:0;z-index:1;}
 </style>
 </head>
 <body>
@@ -182,6 +183,10 @@ window.startGame = function(){
     if(e.code===keybinds.right) input.right=false;
     if(e.code===keybinds.boost) input.boost=false;
   });
+
+  // Set initial camera above and behind car
+  cam.position.set(car.position.x,15,car.position.z-20);
+  cam.lookAt(car.position.x,0,car.position.z);
 
   animate();
 };
