@@ -74,10 +74,10 @@
   <button id="settingsBtn">Settings</button>
 </div>
 
-<script type="module">
+<!-- Include Three.js -->
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 
-import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-
+<script>
 const menu = document.getElementById('menu');
 const startBtn = document.getElementById('startBtn');
 const trackSelect = document.getElementById('trackSelect');
@@ -103,7 +103,7 @@ if(localStorage.getItem('makewayKeybinds')){
 const input={up:false,down:false,left:false,right:false,boost:false};
 
 // --- Start Game Function ---
-window.startGame = function(){
+function startGame(){
   // Scene setup
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x111122);
@@ -189,7 +189,7 @@ window.startGame = function(){
   cam.lookAt(car.position.x,0,car.position.z);
 
   animate();
-};
+}
 
 // --- Camera Update ---
 function updateCamera(){
@@ -199,21 +199,18 @@ function updateCamera(){
 
 // --- Collision & Logic ---
 function checkCollision(){
-  // Track boundaries
   for(const obs of track){
     const dx = car.position.x - obs.position.x;
     const dz = car.position.z - obs.position.z;
     if(Math.abs(dx)>2 || Math.abs(dz-obs.position.z)>5) velocity*=0.9;
   }
 
-  // Boost pads
   for(const pad of boostPads){
     const dx = car.position.x - pad.position.x;
     const dz = car.position.z - pad.position.z;
     if(Math.sqrt(dx*dx + dz*dz)<1.5){boostActive=true;boostTimer=30;}
   }
 
-  // Checkpoints
   for(const cp of checkpoints){
     if(!cp.passed){
       const dx = car.position.x - cp.mesh.position.x;
@@ -226,7 +223,6 @@ function checkCollision(){
     }
   }
 
-  // Finish line
   const dxF = car.position.x - finishLine.position.x;
   const dzF = car.position.z - finishLine.position.z;
   if(Math.sqrt(dxF*dxF + dzF*dzF)<3 && !crossedFinish){
@@ -237,7 +233,6 @@ function checkCollision(){
   }
   if(dzF>finishLine.position.z+5) crossedFinish=false;
 
-  // Fall off track
   if(car.position.y<-5){velocity=0;points=0;car.position.set(0,0.25,0);rotation=0;console.log('Fell off! Points reset to 0');}
 }
 
